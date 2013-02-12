@@ -565,7 +565,7 @@ wsrep_cluster_name                       = pxc-<%= node.chef_environment %>-<%= 
 wsrep_sst_method                         = xtrabackup
 
 # force the donor server for sst, else galera chooses its own
-#wsrep_sst_donor                          = mysql-cluster02.us-east-1c.instance.com
+#wsrep_sst_donor                          = <%= @wsrep_sst_donor_address %>
 
 # State Snapshot Transfer auth
 wsrep_sst_auth                           = root:<%= @mysql_root_passwd %>
@@ -578,7 +578,7 @@ wsrep_node_name                          = <%= node[:fqdn] %>
 # that are very common in PXC configuration.
 # We will be using elastic IPs for all address use, thus public_ipv4 is now the elastic IP and the single 
 # "right" answer for cluster communication
-wsrep_node_address                       = <%= node[:ec2][:public_ipv4] %>
+wsrep_node_address                       = <%= node[:fqdn] %>
 
 # SSL for Galera replication, unrelated to other tasks
 wsrep_provider_options                   = <%= node[:mysql][:my_cnf][:wsrep_provider_options] %>
